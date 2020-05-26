@@ -1,0 +1,182 @@
+<div class="kt-portlet">
+		<div class="kt-portlet__head">
+	     <div class="kt-portlet__head-label">
+		    <h3 class="kt-portlet__head-title"><span>Edit Player</span></h3>
+		 </div>
+		 <div class="kt-portlet__head-toolbar">
+		  <button  routerLink="/demo1/users/players" mat-raised-button color="yellow">Back To Players</button>
+		 </div>
+	</div>
+		<div class="kt-portlet__body">
+			<div class="row">
+					<form [formGroup]="login" (ngSubmit)="save_edit()">
+					<div class="col-lg-4">
+					
+					 <div class="card  user-profile" >
+						  <div class="card-body text-center">
+							  <div class="user-image ">								
+								  <img class="rounded-circle img-thumbnail" src="{{imgURL}}"/> 
+								  <label  for="user-img"><i class="la la-pencil"></i></label>
+								  <input  id="user-img" #file1 accept='image/*' (change)="preview(file1.files)" name="user-img" style="display:none" type="file">
+							  </div>
+							<h4 class="card-title" >{{name}}</h4>
+							<p class="card-content" >{{email}}</p>
+						  </div>
+				</div>
+					</div>
+					<div class="col-lg-8">
+					<!--h2 class="heading"> Basic Info</h2-->
+					<div class="row">
+					  <div class="col-md-6">
+					  <mat-form-field>
+					  <input type="text" matInput placeholder="First Name"   formControlName="fname">
+					 </mat-form-field>
+
+
+					<div *ngIf="!login.controls.fname.valid && isSubit_property" class="valid">
+				     	Please enter first name
+					</div>
+
+					 </div>
+					  <div class="col-md-6">
+					  <mat-form-field>
+					  <input type="text" matInput placeholder="Last Name" formControlName="lname">
+					 </mat-form-field>
+
+					   <div *ngIf="!login.controls.lname.valid && isSubit_property" class="valid">
+							Please enter last name
+					   </div>
+
+					 </div>
+					  <div class="col-md-6">
+					   <mat-form-field>
+					  <input type="email" matInput placeholder="Email Address"   formControlName="email">				
+					 </mat-form-field>
+
+				      <div *ngIf="!login.controls.email.valid && isSubit_property" class="valid">
+							Please enter email
+					   </div>
+
+					 </div>
+					 <div class="col-md-6">
+					 <mat-form-field>
+					  <input type="text" matInput placeholder="Phone No"   formControlName="phone">
+					 </mat-form-field>
+
+					 <div *ngIf="!login.controls.phone.valid && isSubit_property" class="valid">
+							Please enter phone
+					   </div>
+
+					</div>
+				
+					<div class="col-md-6">
+							<!-- <mat-form-field>
+							<input type="text" matInput placeholder="Address" value="" formControlName="address">
+						   </mat-form-field> -->
+						   <ng4geo-autocomplete (componentCallback)="latlong($event)"  [userSettings]="userSettings"></ng4geo-autocomplete>
+						   <div *ngIf="!address_reuired && isSubit_property" class="valid" style="color:#ca0101;">
+							  Please enter address
+						  </div>
+		  
+						   </div>
+
+				  <div class="col-md-6">
+					   <mat-form-field>
+					  <input type="text" matInput placeholder="State"   formControlName="state">				
+					 </mat-form-field>
+
+					 <div *ngIf="!login.controls.state.valid && isSubit_property" class="valid">
+							Please enter state
+					   </div>
+
+					 </div>
+					  <div class="col-md-6">
+					   <mat-form-field>
+					  <input type="text" matInput placeholder="City"   formControlName="city">				
+					 </mat-form-field>
+
+					 <div *ngIf="!login.controls.city.valid && isSubit_property" class="valid">
+							Please enter city
+					   </div>
+					 </div>
+					  <div class="col-md-6">
+					   <mat-form-field >
+						    <mat-select placeholder="Select Country"  [(value)]="selected" formControlName="country">
+								<mat-option value="option1">India</mat-option>
+								<mat-option value="option2">USA</mat-option>
+								<mat-option value="option3">Canada</mat-option>
+								<mat-option value="option4">Australia</mat-option>
+							</mat-select>	  
+					   </mat-form-field>
+					   <div *ngIf="!login.controls.country.valid && isSubit_property" class="valid">
+							Please enter country
+					   </div>
+
+					 </div>
+					 <div class="col-md-6">
+					   <mat-form-field>
+					  <input type="text" matInput placeholder="Zipcode" formControlName="zip">				
+					 </mat-form-field>
+					 <div *ngIf="!login.controls.zip.valid && isSubit_property" class="valid">
+							Please enter zipcode
+					   </div>
+
+					 </div>
+					  <div class="col-md-6">
+					   <mat-form-field>
+					  <input type="text" matInput placeholder="Height"   formControlName="height">				
+					 </mat-form-field>
+
+					 <div *ngIf="!login.controls.height.valid && isSubit_property" class="valid">
+							Please enter height
+					   </div>
+
+					 </div>
+					 <div class="col-md-6">
+					   <mat-form-field>
+					  <input type="text" matInput placeholder="Weight" formControlName="weight">				
+					 </mat-form-field>
+					 <div *ngIf="!login.controls.weight.valid && isSubit_property" class="valid">
+							Please enter weight
+					   </div>
+
+					 </div>
+					  <div class="col-md-6">
+							<mat-form-field>
+									<input  matInput [matDatepicker]="myDatepicker" formControlName="dob">
+									<mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+									<mat-datepicker #myDatepicker></mat-datepicker>
+								  </mat-form-field>
+
+					 <div *ngIf="!login.controls.dob.valid && isSubit_property" class="valid">
+							Please enter dob
+					   </div>
+
+					 </div>
+					   <div class="col-md-6">
+					   <mat-form-field>
+					  <input type="text" matInput placeholder="Position"   formControlName="position">				
+					 </mat-form-field>
+
+					 <div *ngIf="!login.controls.position.valid && isSubit_property" class="valid">
+							Please enter position
+					   </div>
+
+					 </div>
+			
+				 <div class="col-md-12 mt-3">
+			 <button  mat-raised-button color="pink" type="submit">Save</button>
+			</div>
+				 </div>
+				 </div>
+				</form>
+				 </div>
+</div> 
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#9784ed"
+type="square-loader"
+>
+<p style="font-size: 20px; color: white">Please wait...</p>
+</ngx-spinner>

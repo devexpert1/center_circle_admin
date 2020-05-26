@@ -1,0 +1,365 @@
+<div class="kt-portlet">
+	<div class="kt-portlet__head">
+	 <div class="kt-portlet__head-label">
+		<h3 class="kt-portlet__head-title"><span>Add Match</span></h3>
+	 </div>
+	 <!-- <div class="kt-portlet__head-toolbar">
+	  <button  routerLink="/demo1/users/players" mat-raised-button color="yellow">Back To Matches</button>
+	 </div> -->
+</div>
+	<div class="kt-portlet__body">
+		<div class="row">
+		
+
+
+				<div class="col-lg-8">
+				<!--h2 class="heading"> Basic Info</h2-->
+				<form [formGroup]="login">
+				<div class="row">
+
+					<div class="col-md-6">
+						<select formControlName="type" (change)="limit_value()">
+							<option  value="5" >
+							 5 Vs 5
+							</option>
+							<option  value="6"  >
+								6 Vs 6
+							   </option>
+						  </select>
+					   <div *ngIf="!login.controls.type.valid && isSubit_property" class="valid">
+							  Please enter name
+					   </div>
+	  
+					</div>
+
+					<div class="col-md-6">
+						<mat-select formControlName="gender">
+							<mat-option  value="m">
+							Male
+							</mat-option>
+							<mat-option  value="f">
+							Female
+							   </mat-option>
+							   <mat-option  value="coed">
+							Coed
+							   </mat-option>
+						  </mat-select>
+					   <div *ngIf="!login.controls.gender.valid && isSubit_property" class="valid">
+							  Please select gender
+					   </div>
+	  
+					</div>
+
+					<div class="col-md-6">
+
+						<ng4geo-autocomplete (componentCallback)="latlong($event)" ></ng4geo-autocomplete>
+								
+								<div *ngIf="!address_reuired && isSubit_property" class="valid" style="color:#ca0101;">
+								Please enter address
+								</div>
+			
+						</div>
+
+
+			  <div class="col-md-6">
+				<mat-form-field>
+			   <input type="date" matInput placeholder="Date" value="" formControlName="date">				
+			  </mat-form-field>
+
+			  <div *ngIf="!login.controls.date.valid && isSubit_property" class="valid">
+					 Please enter date
+			</div>
+
+
+			  </div>
+			  
+
+					
+				  <div class="col-md-6">
+					<input [ngxTimepicker]="picker" [format]="24" formControlName="stime" >
+					<ngx-material-timepicker #picker></ngx-material-timepicker>
+					<div *ngIf="!login.controls.stime.valid && isSubit_property" class="valid">
+							Please enter start time
+						</div>
+
+				 </div>
+
+
+			 <div class="col-md-6">
+				   <input [ngxTimepicker]="picker1" [format]="24" formControlName="etime">  
+					<ngx-material-timepicker #picker1></ngx-material-timepicker>
+
+			  <div *ngIf="!login.controls.etime.valid && isSubit_property" class="valid">
+				Please enter end time
+			</div>
+
+
+			  </div>
+
+
+			  <div class="col-md-6">
+				<mat-form-field>
+				<input type="text" matInput placeholder="Name" value="" formControlName="name">
+			   </mat-form-field>
+			   <div *ngIf="!login.controls.name.valid && isSubit_property" class="valid">
+					  Please enter name
+			   </div>
+
+			</div>
+
+			<br>
+			<div>
+				<button 
+		 
+				 mat-raised-button color="pink" (click)="open(content1)" (click)="getPlayers(1)" (click)="getTeams(1)">{{team1_name}}</button> 
+			</div>
+			
+			<br>
+			<div>
+				<button  mat-raised-button color="pink" (click)="open(content8)" (click)="getPlayers(2)" (click)="getTeams(2)">{{team2_name}}</button>
+			</div>
+
+			 <div class="col-md-12 mt-3">
+		 <button   mat-raised-button color="pink" (click)="save_edit()">Save</button>
+		</div>
+
+		<div class="col-md-12 mt-3">
+			<button   mat-raised-button color="pink"  [routerLink]="['/demo1/matches/']" routerLinkActive="router-link-active" >Back</button>
+		   </div>
+
+			 </div>
+			</form>
+			 </div>
+			 </div>
+</div> 
+
+
+
+  <!-- /////// for first team////// -->
+
+<ng-template model_box #content1 let-c="close" let-d="dismiss">
+      
+	<div class="modal-body">
+	  <button type="button" class="close close-modal" aria-label="Close" (click)="d('Cross click')">
+		   <span aria-hidden="true">&times;</span>
+		 </button>
+	 <div  class="modal-inner text-center">
+
+		<h4 class="mb-3 choose_plr_hdr">Choose team 1 for match</h4>
+		
+		<mat-table #table [dataSource]="dataSource2">  
+
+	   <ng-container matColumnDef="name">
+		<mat-header-cell *matHeaderCellDef cell_center >Name </mat-header-cell>
+		<mat-cell *matCellDef="let element3"  cell_center> {{element3.name}}  </mat-cell>
+	  </ng-container>
+
+	  <ng-container matColumnDef="plr_image">
+		<mat-header-cell *matHeaderCellDef cell_center > Player </mat-header-cell>
+		<mat-cell *matCellDef="let element3"  cell_center> 
+		  <img class="table-user rounded-circle img-thumbnail" src="assets/media/users/default-avatar.jpg" *ngIf="errors.indexOf(element3.cover)>=0"/>
+		  <img class="table-user rounded-circle img-thumbnail" src="{{team_url}}{{element3.cover}}" *ngIf="errors.indexOf(element3.cover)==-1"/>
+		  </mat-cell>
+	  </ng-container>
+
+	  <ng-container matColumnDef="location">
+		<mat-header-cell *matHeaderCellDef cell_center > Location </mat-header-cell>
+		<mat-cell *matCellDef="let element3"  cell_center> <span *ngIf="errors.indexOf(element3.city)==-1">{{element3.city}}, {{element3.state}}, {{element3.country}}</span></mat-cell>
+	  </ng-container>       
+	 
+	   <mat-header-row *matHeaderRowDef="displayedColumns3"></mat-header-row>
+	   <mat-row *matRowDef="let row; columns: displayedColumns3;"></mat-row>
+
+	   <ng-container matColumnDef="action">
+		  <mat-header-cell *matHeaderCellDef cell_center class="pr-2"> Action </mat-header-cell>
+		  <mat-cell *matCellDef="let element2" cell_center class="pr-2">
+
+			<mat-checkbox value="{{element2._id}}" (change)="finish(1,element2._id, element2.name)"  [checked]= "team1_id == element2._id ? true : false">
+
+			</mat-checkbox>
+ 
+
+		  </mat-cell>
+		</ng-container>
+	 </mat-table>
+
+		<br>
+
+		<br>
+	
+		<h4 class="mb-3 choose_plr_hdr">Choose players for Team 1</h4>
+		<mat-form-field>
+			<input type="text" matInput placeholder="Team 1 Name" value="Team 1" [(ngModel)]="team1_input_name">				
+		</mat-form-field>
+		<mat-table #table [dataSource]="dataSource3">  
+
+	   <ng-container matColumnDef="name">
+		<mat-header-cell *matHeaderCellDef cell_center > Name </mat-header-cell>
+		<mat-cell *matCellDef="let element3"  cell_center> {{element3.fname[0].toUpperCase()+element3.fname.slice(1)}} {{element3.lname[0].toUpperCase()+element3.lname.slice(1)}}  </mat-cell>
+	  </ng-container>
+
+	  <ng-container matColumnDef="plr_image">
+		<mat-header-cell *matHeaderCellDef cell_center > Player </mat-header-cell>
+		<mat-cell *matCellDef="let element3"  cell_center> 
+		  <img class="table-user rounded-circle img-thumbnail" src="assets/media/users/default-avatar.jpg" *ngIf="errors.indexOf(element3.pic)>=0"/>
+		  <img class="table-user rounded-circle img-thumbnail" src="{{img_url}}{{element3.pic}}" *ngIf="errors.indexOf(element3.pic)==-1"/>
+		  </mat-cell>
+	  </ng-container>
+
+	  <ng-container matColumnDef="location">
+		<mat-header-cell *matHeaderCellDef cell_center > Location </mat-header-cell>
+		<mat-cell *matCellDef="let element3"  cell_center> <span *ngIf="errors.indexOf(element3.city)==-1">{{element3.city}}, {{element3.state}}, {{element3.country}}</span></mat-cell>
+	  </ng-container>       
+	 
+	   <mat-header-row *matHeaderRowDef="displayedColumns3"></mat-header-row>
+	   <mat-row *matRowDef="let row; columns: displayedColumns3;"></mat-row>
+
+	   <ng-container matColumnDef="action">
+		  <mat-header-cell *matHeaderCellDef cell_center class="pr-2"> Action </mat-header-cell>
+		  <mat-cell *matCellDef="let element2" cell_center class="pr-2">
+					 
+			<mat-checkbox value="{{element2._id}}" (change)="FieldsChange1($event,element2._id)" [disabled]="(team1_player_ids.length == limit && team1_player_ids.indexOf(element2._id)==-1 )? true : false " [checked]= "team1_player_ids?.indexOf(element2._id) >= 0 ? true : false">
+
+			</mat-checkbox>
+				
+		  </mat-cell>
+		</ng-container>
+	 </mat-table>
+
+	 <ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#9784ed"
+type="square-loader"
+>
+<p style="font-size: 20px; color: white">Please wait...</p>
+</ngx-spinner>          
+		  </div>
+	   </div>
+
+	   <div class="modal-footer no-border pt-0 justify-content-center pb-4">
+		<button type="button" class="btn btn-primary btn-grn" (click)="finishPlayerIds(1)" [disabled]="team1_player_ids.length==0">Finish</button> 
+	 	 
+	   </div>
+  </ng-template>
+  <!-- /////// for first team////// -->
+
+
+  <!-- /////// for second team////// -->
+
+  <ng-template model_box #content8 let-c="close" let-d="dismiss">
+      
+	<div class="modal-body">
+	  <button type="button" class="close close-modal" aria-label="Close" (click)="d('Cross click')">
+		   <span aria-hidden="true">&times;</span>
+		 </button>
+	 <div  class="modal-inner text-center">
+
+		<h4 class="mb-3 choose_plr_hdr">Choose team 2 for match</h4>
+		
+		<mat-table #table [dataSource]="dataSource2">  
+
+	   <ng-container matColumnDef="name">
+		<mat-header-cell *matHeaderCellDef cell_center > Name </mat-header-cell>
+		<mat-cell *matCellDef="let element3"  cell_center> {{element3.name}}  </mat-cell>
+	  </ng-container>
+
+	  <ng-container matColumnDef="plr_image">
+		<mat-header-cell *matHeaderCellDef cell_center > Player </mat-header-cell>
+		<mat-cell *matCellDef="let element3"  cell_center> 
+		  <img class="table-user rounded-circle img-thumbnail" src="assets/media/users/default-avatar.jpg" *ngIf="errors.indexOf(element3.cover)>=0"/>
+		  <img class="table-user rounded-circle img-thumbnail" src="{{team_url}}{{element3.cover}}" *ngIf="errors.indexOf(element3.cover)==-1"/>
+		  </mat-cell>
+	  </ng-container>
+
+	  <ng-container matColumnDef="location">
+		<mat-header-cell *matHeaderCellDef cell_center > Location </mat-header-cell>
+		<mat-cell *matCellDef="let element3"  cell_center> <span *ngIf="errors.indexOf(element3.city)==-1">{{element3.city}}, {{element3.state}}, {{element3.country}}</span></mat-cell>
+	  </ng-container>       
+	 
+	   <mat-header-row *matHeaderRowDef="displayedColumns3"></mat-header-row>
+	   <mat-row *matRowDef="let row; columns: displayedColumns3;"></mat-row>
+
+	   <ng-container matColumnDef="action">
+		  <mat-header-cell *matHeaderCellDef cell_center class="pr-2"> Action </mat-header-cell>
+		  <mat-cell *matCellDef="let element2" cell_center class="pr-2">
+
+			<mat-checkbox value="{{element2._id}}" (change)="finish(2,element2._id, element2.name)"  [checked]= "team2_id == element2._id ? true : false">
+
+			</mat-checkbox>
+		 
+
+		  </mat-cell>
+		</ng-container>
+	 </mat-table>
+
+
+	
+		<h4 class="mb-3 choose_plr_hdr">Choose players for match</h4>
+
+		<mat-form-field>
+			<input type="text" matInput placeholder="Team 2 Name" value="Team 2" [(ngModel)]="team2_input_name">				
+		</mat-form-field>
+
+		<mat-table #table [dataSource]="dataSource3">  
+
+	   <ng-container matColumnDef="name">
+		<mat-header-cell *matHeaderCellDef cell_center > Name </mat-header-cell>
+		<mat-cell *matCellDef="let element3"  cell_center> {{element3.fname[0].toUpperCase()+element3.fname.slice(1)}} {{element3.lname[0].toUpperCase()+element3.lname.slice(1)}}  </mat-cell>
+	  </ng-container>
+
+	  <ng-container matColumnDef="plr_image">
+		<mat-header-cell *matHeaderCellDef cell_center > Player </mat-header-cell>
+		<mat-cell *matCellDef="let element3"  cell_center> 
+		  <img class="table-user rounded-circle img-thumbnail" src="assets/media/users/default-avatar.jpg" *ngIf="errors.indexOf(element3.pic)>=0"/>
+		  <img class="table-user rounded-circle img-thumbnail" src="{{img_url}}{{element3.pic}}" *ngIf="errors.indexOf(element3.pic)==-1"/>
+		  </mat-cell>
+	  </ng-container>
+
+	  <ng-container matColumnDef="location">
+		<mat-header-cell *matHeaderCellDef cell_center > Location </mat-header-cell>
+		<mat-cell *matCellDef="let element3"  cell_center> <span *ngIf="errors.indexOf(element3.city)==-1">{{element3.city}}, {{element3.state}}, {{element3.country}}</span></mat-cell>
+	  </ng-container>       
+	 
+	   <mat-header-row *matHeaderRowDef="displayedColumns3"></mat-header-row>
+	   <mat-row *matRowDef="let row; columns: displayedColumns3;"></mat-row>
+
+	   <ng-container matColumnDef="action">
+		  <mat-header-cell *matHeaderCellDef cell_center class="pr-2"> Action </mat-header-cell>
+		  <mat-cell *matCellDef="let element2" cell_center class="pr-2">
+					 
+			<mat-checkbox value="{{element2._id}}" (change)="FieldsChange2($event,element2._id)" [disabled]="(team2_player_ids.length == limit && team2_player_ids.indexOf(element2._id)==-1 )? true : false " [checked]= "team2_player_ids?.indexOf(element2._id) >= 0 ? true : false">
+
+			</mat-checkbox>
+				
+		  </mat-cell>
+		</ng-container>
+	 </mat-table>
+
+	 <ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#9784ed"
+type="square-loader"
+>
+<p style="font-size: 20px; color: white">Please wait...</p>
+</ngx-spinner>          
+		  </div>
+	   </div>
+
+	   <div class="modal-footer no-border pt-0 justify-content-center pb-4">
+		<button type="button" class="btn btn-primary btn-grn" (click)="finishPlayerIds(2)" [disabled]="team2_player_ids.length==0">Finish</button> 
+	 	 
+	   </div>
+  </ng-template>
+ <!-- /////// for second team////// -->
+
+
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#9784ed"
+type="pacman"
+>
+<p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

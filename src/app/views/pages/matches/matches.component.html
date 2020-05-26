@@ -1,0 +1,500 @@
+<div class="kt-portlet">
+	<div class="kt-portlet__head">
+	     <div class="kt-portlet__head-label">
+        <h3 class="kt-portlet__head-title"><span>All Matches</span></h3>
+      
+     </div>
+     <div class="kt-portlet__head-toolbar">
+		  <button (click)="open(content9)"  (click)="getowners()"  mat-raised-button color="yellow">Add Match</button>
+		 </div>
+		
+	</div>
+	<mat-tab-group>
+  <mat-tab label="Today's Matches" class="pl-3">
+  	<div class="kt-portlet__body">
+	
+		  <mat-form-field class="mat-form-field-infix">
+			<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+		  </mat-form-field>
+	  
+	 <div class="mat-table__wrapper"> 
+   <mat-table #table [dataSource]="dataSource">  
+ 
+	
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef  cell_center> Match Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"  cell_center> {{element.name}} </mat-cell>
+    </ng-container>
+  <!-- Location Column -->
+    <ng-container matColumnDef="location">
+      <mat-header-cell *matHeaderCellDef  cell_center> Location </mat-header-cell>
+      <mat-cell *matCellDef="let element"  cell_center>{{element.location}} </mat-cell>
+    </ng-container>
+	<ng-container matColumnDef="owner">
+      <mat-header-cell *matHeaderCellDef  cell_center> Owner Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"  cell_center> {{element.ownerfname[0].toUpperCase()+element.ownerfname.slice(1)}} {{element.ownerlname[0].toUpperCase()+element.ownerlname.slice(1)}}</mat-cell>
+    </ng-container>
+	    <!-- Start Time Column -->
+    <ng-container matColumnDef="starttime">
+      <mat-header-cell *matHeaderCellDef title  mx-w-100  cell_center> Start Time </mat-header-cell>
+      <mat-cell *matCellDef="let element" title mx-w-100  cell_center> <span class="badge badge-secondary">{{ element.time}}</span> </mat-cell>
+    </ng-container>
+		  <!-- Player Joined Column -->
+    <ng-container matColumnDef="playerjoined">
+      <mat-header-cell *matHeaderCellDef title cell_center>  Players </mat-header-cell>
+      <mat-cell *matCellDef="let element" title cell_center>{{element.players}}</mat-cell>
+    </ng-container>
+	
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef  cell_center pr-2> Action </mat-header-cell>
+      <mat-cell *matCellDef="let element; let i=index"  cell_center pr-2>
+        <button  (click)="open(content8)"  (click)="getPlayers(element._id)"  mat-icon-button color="yellow" matTooltip="Invite Player">
+          <mat-icon>person_add</mat-icon>
+        </button>&nbsp;
+        <button  routerLink="/demo1/matches/match-detail/{{element._id}}" mat-icon-button color="pink" matTooltip="Match Details">
+          <i class="fas fa-futbol"></i>
+        </button>&nbsp;       
+      <button (click)="open(content)" mat-icon-button color="danger" matTooltip="Cancel Match" type="button" (click)="deleteUser(i,element._id,1)">
+        <mat-icon>close</mat-icon>
+      </button>
+		  </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
+    <mat-paginator #paginator
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 20]"
+    [showFirstLastButtons]="true">
+  </mat-paginator>
+</div>
+
+  
+  
+  </mat-tab>
+  <mat-tab label="Upcoming Matches">
+     <div class="kt-portlet__body">
+	
+		  <mat-form-field class="mat-form-field-infix">
+			<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+		  </mat-form-field>
+	  
+	 <div class="mat-table__wrapper"> 
+   <mat-table #table [dataSource]="dataSource1">  
+	
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef cell_center> Match Name </mat-header-cell>
+      <mat-cell *matCellDef="let element1" cell_center> {{element1.name}} </mat-cell>
+    </ng-container>
+  <!-- Location Column -->
+    <ng-container matColumnDef="location">
+      <mat-header-cell *matHeaderCellDef cell_center> Location </mat-header-cell>
+      <mat-cell *matCellDef="let element1" cell_center>{{element1.location}} </mat-cell>
+    </ng-container>
+	<ng-container matColumnDef="owner">
+      <mat-header-cell *matHeaderCellDef  cell_center> Owner Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"  cell_center> {{element.ownerfname[0].toUpperCase()+element.ownerfname.slice(1)}} {{element.ownerlname[0].toUpperCase()+element.ownerlname.slice(1)}} </mat-cell>
+    </ng-container>
+	    <ng-container matColumnDef="startdate">
+      <mat-header-cell *matHeaderCellDef title  cell_center>Date </mat-header-cell>
+      <mat-cell *matCellDef="let element1" title cell_center> <span class="badge badge-secondary">{{ element1.date | date}}</span> </mat-cell>
+    </ng-container>
+	    <!-- Start Time Column -->
+    <ng-container matColumnDef="starttime">
+      <mat-header-cell *matHeaderCellDef title mx-w-100 cell_center> Start Time </mat-header-cell>
+      <mat-cell *matCellDef="let element1" title mx-w-100 cell_center><span class="badge badge-secondary">{{ element1.time}}</span> </mat-cell>
+    </ng-container>
+		  <!-- Player Joined Column -->
+    <ng-container matColumnDef="playerjoined">
+      <mat-header-cell *matHeaderCellDef title cell_center>  Players </mat-header-cell>
+      <mat-cell *matCellDef="let element1" title cell_center> {{element1.players}}</mat-cell>
+    </ng-container>
+	
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef cell_center pr-2> Action </mat-header-cell>
+      <mat-cell *matCellDef="let element1; let i= index" cell_center pr-2>
+        <button  (click)="open(content8)"  mat-icon-button color="yellow" matTooltip="Invite Player">
+          <mat-icon>person_add</mat-icon>
+        </button>&nbsp;
+        <button  routerLink="/demo1/matches/match-detail/{{element1._id}}" mat-icon-button color="pink" matTooltip="Match Details">
+          <i class="fas fa-futbol"></i>
+        </button>&nbsp;       
+						<button (click)="open(content)" mat-icon-button color="danger" matTooltip="Cancel Match" type="button" (click)="deleteUser(i, element1._id,2)">
+        <mat-icon>close</mat-icon>
+      </button>
+		  </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns1"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns1;"></mat-row>
+  </mat-table>
+</div>
+    <mat-paginator #paginator
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 20]"
+    [showFirstLastButtons]="true">
+  </mat-paginator>
+</div>
+  
+  
+  </mat-tab>
+  <mat-tab label="Previous Matches" class="pr-3">
+    <div class="kt-portlet__body">
+	
+		  <mat-form-field class="mat-form-field-infix">
+			<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+		  </mat-form-field>
+	  
+	 <div class="mat-table__wrapper"> 
+   <mat-table #table [dataSource]="dataSource2">  
+		
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef cell_center > Match Name </mat-header-cell>
+      <mat-cell *matCellDef="let element2"  cell_center> {{element2.name}} </mat-cell>
+    </ng-container>
+  <!-- Location Column -->
+  <ng-container matColumnDef="owner">
+      <mat-header-cell *matHeaderCellDef  cell_center> Owner Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"  cell_center>{{element.ownerfname[0].toUpperCase()+element.ownerfname.slice(1)}} {{element.ownerlname[0].toUpperCase()+element.ownerlname.slice(1)}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="location">
+      <mat-header-cell *matHeaderCellDef  cell_center> Location </mat-header-cell>
+      <mat-cell *matCellDef="let element2" cell_center >{{element2.location}} </mat-cell>
+    </ng-container>
+	    <ng-container matColumnDef="startdate">
+      <mat-header-cell *matHeaderCellDef title cell_center>Date </mat-header-cell>
+      <mat-cell *matCellDef="let element2" title cell_center> <span class="badge badge-secondary">{{element2.date | date}}</span> </mat-cell>
+    </ng-container>
+	    <!-- Start Time Column -->
+    <ng-container matColumnDef="starttime">
+      <mat-header-cell *matHeaderCellDef title mx-w-100 cell_center> Time </mat-header-cell>
+      <mat-cell *matCellDef="let element2" title mx-w-100 cell_center> <span class="badge badge-secondary">{{element2.time
+        
+      
+      
+      }}</span> </mat-cell>
+    </ng-container>
+		  <!-- End Time Column -->
+		  <!-- Player Joined Column -->
+    <ng-container matColumnDef="playerjoined">
+      <mat-header-cell *matHeaderCellDef title cell_center>  Players Joined </mat-header-cell>
+      <mat-cell *matCellDef="let element2" title cell_center> {{element2.players}}</mat-cell>
+    </ng-container>
+	
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef cell_center class="pr-2"> Action </mat-header-cell>
+      <mat-cell *matCellDef="let element2" cell_center class="pr-2">
+
+        <button (click)="open(content10)" (click)="fromgetPlayers(element2._id)" mat-icon-button color="pink" matTooltip="Match Results">
+        Vote
+        </button>&nbsp;
+
+
+        <button  routerLink="/demo1/matches/match-results/{{element2._id}}" mat-icon-button color="pink" matTooltip="Match Results">
+          <i class="icon icon-footbal-play"></i>
+        </button>&nbsp;
+        <button   routerLink="/demo1/matches/match-detail/{{element2._id}}" mat-icon-button color="pink" matTooltip="Match Details">
+          <i class="fas fa-futbol"></i>
+        </button>&nbsp;  
+					<!-- <button (click)="open(content)" mat-icon-button color="danger" matTooltip="Cancel Match" type="button" (click)="deleteUser(user)">
+        <mat-icon>close</mat-icon>
+      </button> -->
+		  </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns2"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns2;"></mat-row>
+  </mat-table>
+</div>
+    <mat-paginator #paginator
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 20]"
+    [showFirstLastButtons]="true">
+  </mat-paginator>
+</div>
+  
+  </mat-tab>
+</mat-tab-group>
+</div>
+
+<div class="kt-section">
+  <div class="kt-section__content">
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-body">
+	   <button type="button" class="close close-modal" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+		<div  class="modal-inner text-center">
+			 <i class="flaticon2-close-cross fa-4x close-icon"></i>
+			 <h4>Are You Sure ?</h4>
+			 <p class="mb-0">Are you sure you want to cancel this match?</p>
+         </div>
+      </div>
+      <div class="modal-footer no-border pt-0 justify-content-center pb-4">
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="yesCancel()">Delete</button>
+      </div>
+    </ng-template>
+
+    <ng-template model_box #content8 let-c="close" let-d="dismiss">
+      
+      <div class="modal-body">
+        <button type="button" class="close close-modal" aria-label="Close" (click)="d('Cross click')">
+             <span aria-hidden="true">&times;</span>
+           </button>
+       <div  class="modal-inner text-center">
+      
+          <h4 class="mb-3 choose_plr_hdr">Choose players for match</h4>
+          
+          <mat-table #table [dataSource]="dataSource3">  
+         
+         <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef cell_center > Name </mat-header-cell>
+          <mat-cell *matCellDef="let element3"  cell_center> {{element3.fname[0].toUpperCase()+element3.fname.slice(1)}} {{element3.lname[0].toUpperCase()+element3.lname.slice(1)}}  </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="plr_image">
+          <mat-header-cell *matHeaderCellDef cell_center > Player </mat-header-cell>
+          <mat-cell *matCellDef="let element3"  cell_center> 
+            <img class="table-user rounded-circle img-thumbnail" src="assets/media/users/default-avatar.jpg" *ngIf="errors.indexOf(element3.pic)>=0"/>
+            <img class="table-user rounded-circle img-thumbnail" src="{{playerImg}}{{element3.pic}}" *ngIf="errors.indexOf(element3.pic)==-1"/>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="location">
+          <mat-header-cell *matHeaderCellDef cell_center > Location </mat-header-cell>
+          <mat-cell *matCellDef="let element3"  cell_center> <span *ngIf="errors.indexOf(element3.city)==-1">{{element3.city}}, {{element3.state}}, {{element3.country}}</span></mat-cell>
+        </ng-container>       
+       
+         <mat-header-row *matHeaderRowDef="displayedColumns3"></mat-header-row>
+         <mat-row *matRowDef="let row; columns: displayedColumns3;"></mat-row>
+
+         <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef cell_center class="pr-2"> Action </mat-header-cell>
+            <mat-cell *matCellDef="let element2" cell_center class="pr-2">
+                <button (click)="select(element2._id)"  mat-icon-button color="yellow" matTooltip="Invite Player">
+                    <mat-icon>person_add</mat-icon>
+                  </button>&nbsp;
+                  
+            </mat-cell>
+          </ng-container>
+       </mat-table>
+
+       <ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#9784ed"
+type="square-loader"
+>
+<p style="font-size: 20px; color: white">Please wait...</p>
+</ngx-spinner>          
+            </div>
+         </div>
+
+
+
+         <div class="modal-footer no-border pt-0 justify-content-center pb-4">
+          <button type="button" class="btn btn-primary btn-grn" (click)="finish()">Finish</button> 
+          <!-- <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cancel</button> -->
+           
+         </div>
+    </ng-template>
+
+
+
+    <!-- //////////////voting////////// -->
+
+    <ng-template model_box #content9 let-c="close" let-d="dismiss">
+      
+      <div class="modal-body">
+        <button type="button" class="close close-modal" aria-label="Close" (click)="d('Cross click')">
+             <span aria-hidden="true">&times;</span>
+           </button>
+       <div  class="modal-inner text-center">
+      
+          <h4 class="mb-3 choose_plr_hdr">Choose players for match</h4>
+          
+          <mat-table #table [dataSource]="dataSource3">  
+         
+         <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef cell_center > Name </mat-header-cell>
+          <mat-cell *matCellDef="let element3"  cell_center> {{element3.fname[0].toUpperCase()+element3.fname.slice(1)}} {{element3.lname[0].toUpperCase()+element3.lname.slice(1)}}  </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="plr_image">
+          <mat-header-cell *matHeaderCellDef cell_center > Player </mat-header-cell>
+          <mat-cell *matCellDef="let element3"  cell_center> 
+            <img class="table-user rounded-circle img-thumbnail" src="assets/media/users/default-avatar.jpg" *ngIf="errors.indexOf(element3.pic)>=0"/>
+            <img class="table-user rounded-circle img-thumbnail" src="{{playerImg}}{{element3.pic}}" *ngIf="errors.indexOf(element3.pic)==-1"/>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="location">
+          <mat-header-cell *matHeaderCellDef cell_center > Location </mat-header-cell>
+          <mat-cell *matCellDef="let element3"  cell_center> <span *ngIf="errors.indexOf(element3.city)==-1">{{element3.city}}, {{element3.state}}, {{element3.country}}</span></mat-cell>
+        </ng-container>       
+       
+         <mat-header-row *matHeaderRowDef="displayedColumns3"></mat-header-row>
+         <mat-row *matRowDef="let row; columns: displayedColumns3;"></mat-row>
+
+         <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef cell_center class="pr-2"> Action </mat-header-cell>
+            <mat-cell *matCellDef="let element2" cell_center class="pr-2">
+                <button (click)="select(element2._id)"  mat-icon-button color="yellow" matTooltip="Invite Player">
+                    <mat-icon>person_add</mat-icon>
+                  </button>&nbsp;
+                  
+            </mat-cell>
+          </ng-container>
+       </mat-table>
+
+       <ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#9784ed"
+type="square-loader"
+>
+<p style="font-size: 20px; color: white">Please wait...</p>
+</ngx-spinner>          
+            </div>
+         </div>
+
+
+
+         <div class="modal-footer no-border pt-0 justify-content-center pb-4">
+          <button type="button" class="btn btn-primary btn-grn" (click)="finish()">Finish</button> 
+          <!-- <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cancel</button> -->
+           
+         </div>
+    </ng-template>
+
+
+    <!-- ////////////voting///////////// -->
+
+    <!-- ////add match/// -->
+    <ng-template model_box #content10 let-c="close" let-d="dismiss">
+      
+      <div class="modal-body">
+        <button type="button" class="close close-modal" aria-label="Close" (click)="d('Cross click')">
+             <span aria-hidden="true">&times;</span>
+           </button>
+
+       <div  class="modal-inner text-center">
+      
+        <h4 class="mb-3 choose_plr_hdr">VOTE FROM</h4>
+          
+          <mat-table #table [dataSource]="dataSource5">  
+          
+         <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef cell_center > Name </mat-header-cell>
+          <mat-cell *matCellDef="let element3"  cell_center> {{element3.fname[0].toUpperCase()+element3.fname.slice(1)}} {{element3.lname[0].toUpperCase()+element3.lname.slice(1)}}  </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="plr_image">
+          <mat-header-cell *matHeaderCellDef cell_center > Player </mat-header-cell>
+          <mat-cell *matCellDef="let element3"  cell_center> 
+            <img class="table-user rounded-circle img-thumbnail" src="assets/media/users/default-avatar.jpg" *ngIf="errors.indexOf(element3.pic)>=0"/>
+            <img class="table-user rounded-circle img-thumbnail" src="{{playerImg}}{{element3.pic}}" *ngIf="errors.indexOf(element3.pic)==-1"/>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="location">
+          <mat-header-cell *matHeaderCellDef cell_center > Location </mat-header-cell>
+          <mat-cell *matCellDef="let element3"  cell_center> <span *ngIf="errors.indexOf(element3.city)==-1">{{element3.city}}, {{element3.state}}, {{element3.country}}</span>
+            <span *ngIf="errors.indexOf(element3.city)>=0">No location added</span>
+          </mat-cell>
+        </ng-container>       
+       
+         <mat-header-row *matHeaderRowDef="displayedColumns3"></mat-header-row>
+         <mat-row *matRowDef="let row; columns: displayedColumns3;"></mat-row>
+
+         <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef cell_center class="pr-2"> Action </mat-header-cell>
+            <mat-cell *matCellDef="let element2" cell_center class="pr-2">
+              <input type="radio"  name="voteFrom" value="element2._id" (change)="voteFromId(element2._id)">
+                  <mat-icon>done</mat-icon>
+                 
+                  
+            </mat-cell>
+          </ng-container>
+       </mat-table>
+
+
+       <!-- //////to player//// --> 
+
+       <h4 class="mb-3 choose_plr_hdr">VOTE FOR</h4>
+        Comment:   <textarea [(ngModel)]="comment">
+
+          </textarea>
+       <mat-table #table [dataSource]="dataSource6">  
+       
+      <ng-container matColumnDef="name">
+       <mat-header-cell *matHeaderCellDef cell_center > Name </mat-header-cell>
+       <mat-cell *matCellDef="let element3"  cell_center> {{element3.fname[0].toUpperCase()+element3.fname.slice(1)}} {{element3.lname[0].toUpperCase()+element3.lname.slice(1)}}  </mat-cell>
+     </ng-container>
+
+     <ng-container matColumnDef="plr_image">
+       <mat-header-cell *matHeaderCellDef cell_center > Player </mat-header-cell>
+       <mat-cell *matCellDef="let element3"  cell_center> 
+         <img class="table-user rounded-circle img-thumbnail" src="assets/media/users/default-avatar.jpg" *ngIf="errors.indexOf(element3.pic)>=0"/>
+         <img class="table-user rounded-circle img-thumbnail" src="{{playerImg}}{{element3.pic}}" *ngIf="errors.indexOf(element3.pic)==-1"/>
+         </mat-cell>
+     </ng-container>
+
+     <ng-container matColumnDef="location">
+       <mat-header-cell *matHeaderCellDef cell_center > Location </mat-header-cell>
+       <mat-cell *matCellDef="let element3"  cell_center> <span *ngIf="errors.indexOf(element3.city)==-1">{{element3.city}}, {{element3.state}}, {{element3.country}}</span>
+         <span *ngIf="errors.indexOf(element3.city)>=0">No location added</span>
+       </mat-cell>
+     </ng-container>       
+    
+      <mat-header-row *matHeaderRowDef="displayedColumns3"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns3;"></mat-row>
+
+      <ng-container matColumnDef="action">
+         <mat-header-cell *matHeaderCellDef cell_center class="pr-2"> Action </mat-header-cell>
+         <mat-cell *matCellDef="let element2" cell_center class="pr-2">
+
+          <input type="radio"  name="voteFrom" value="element2._id" (change)="voteToId(element2._id)">
+               <mat-icon>done</mat-icon>
+               
+         </mat-cell>
+       </ng-container>
+    </mat-table>
+
+       <ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#9784ed"
+type="square-loader"
+>
+<p style="font-size: 20px; color: white">Please wait...</p>
+</ngx-spinner>          
+            </div>
+         </div>
+
+
+         
+         <div class="modal-footer no-border pt-0 justify-content-center pb-4">
+          <button type="button" class="btn btn-primary btn-grn" (click)="voteNow()">Finish</button> 
+          <!-- <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cancel</button> -->
+           
+         </div>
+    </ng-template>
+
+    <!-- ///// addmatch //// -->
+
+  </div>
+</div>
+
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#9784ed"
+type="square-loader"
+>
+<p style="font-size: 20px; color: white">Please wait...</p>
+</ngx-spinner>
+

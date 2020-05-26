@@ -1,0 +1,238 @@
+<div class="row">
+	<div class="col-xl-12">
+		<div class="row row-full-height">
+			<div class="col-sm-12 col-md-6 col-lg-3">
+			   <div class="card card-stats mb-3">
+					<div class="card-body ">
+						<div class="row card-inner">						
+							<div class="col-7 col-md-8">
+								 <div class="numbers">
+									<p class="card-number">{{TOwner}}</p>
+									<p class="card-title">Total Owners </p>
+								</div>							
+							</div>
+							<div class="col-5 col-md-4">
+								<div class="icon-big text-center icon-warning">
+									<i class="fa fa-users fa-3x text-primary"></i>
+								</div>
+							</div>
+						</div>
+					  </div>
+				  </div>
+			</div>
+		<div class="col-sm-12 col-md-6 col-lg-3">
+			   <div class="card card-stats mb-3">
+					<div class="card-body ">
+						<div class="row card-inner">						
+							<div class="col-7 col-md-8">
+								 <div class="numbers">
+									<p class="card-number">{{TPlayer}}</p>
+									<p class="card-title">Total Players</p>
+								</div>							
+							</div>
+							<div class="col-5 col-md-4">
+								<div class="icon-big text-center icon-warning">
+									<i class="icon icon-footbal-play  fa-4x text-pink"></i>
+								</div>
+							</div>
+						</div>
+					  </div>
+				  </div>
+			</div>
+			<div class="col-sm-12 col-md-6 col-lg-3">
+			   <div class="card card-stats mb-3">
+					<div class="card-body ">
+						<div class="row card-inner">						
+							<div class="col-7 col-md-8">
+								 <div class="numbers">
+									<p class="card-number">$1099</p>
+									<p class="card-title">Total Earnings</p>
+								</div>							
+							</div>
+							<div class="col-5 col-md-4">
+								<div class="icon-big text-center icon-warning">
+									<i class="fas fa-dollar-sign fa-3x text-warning"></i>
+								</div>
+							</div>
+						</div>
+					  </div>
+				  </div>
+			</div>
+			<div class="col-sm-12 col-md-6 col-lg-3">
+			   <div class="card card-stats mb-3">
+					<div class="card-body ">
+						<div class="row card-inner">						
+							<div class="col-7 col-md-8">
+								 <div class="numbers">
+								<p class="card-number">{{total_matches}}</p>
+									<p class="card-title">Total Matches</p>
+								</div>							
+							</div>
+							<div class="col-5 col-md-4">
+								<div class="icon-big text-center icon-warning">
+									<i class="fa fa-trophy fa-3x text-green"></i>
+								</div>
+							</div>
+						</div>
+					  </div>
+				  </div>
+			</div>
+		
+			 </div>
+		</div>
+	   <div  class="kt-space-20"></div>
+	<div class="col-lg-12 chat-1">
+		<kt-portlet [class]="'kt-portlet--height-fluid'">
+			<kt-portlet-header [title]="'Recent Owners'">
+				<ng-container ktPortletTools>
+					<!--kt-context-menu2></kt-context-menu2-->
+				</ng-container>
+			</kt-portlet-header>
+			<kt-portlet-body>
+				<kt-widget12></kt-widget12>
+			</kt-portlet-body>
+			</kt-portlet>
+</div>
+</div>
+
+
+<kt-portlet>
+	<kt-portlet-body [class]="'kt-portlet__body--fit'">
+		<div class="row row-no-padding row-col-separator-xl">
+			
+			<div class="col-lg-12">
+				<kt-widget14 [title]="'Recent Players'" [desc]="'Check out each collumn for more details'"></kt-widget14>
+			</div>
+			
+		</div>
+	</kt-portlet-body>
+</kt-portlet>
+
+<div class="row">
+	<div class="col-xl-12">
+		<kt-portlet [class]="'kt-portlet--height-fluid'">
+			<kt-portlet-header [title]="'Recent Owners'" [class]="'kt-portlet__head--lg  kt-portlet__head--break-sm'">
+				<ng-container ktPortletTools>
+				
+				</ng-container>
+			</kt-portlet-header>
+			<kt-portlet-body>
+			<!--kt-data-table></kt-data-table-->
+  <mat-table #table [dataSource]="dataSource" class="mb-3">
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <mat-header-cell *matHeaderCellDef  id_col> Sr. No </mat-header-cell>
+      <mat-cell *matCellDef="let element; let i = index;"  id_col> {{i+1}} </mat-cell>
+	</ng-container>
+	<!-- Image Column -->
+    <ng-container matColumnDef="imageurl" >
+      <mat-header-cell image_cell *matHeaderCellDef title cell_center> Image </mat-header-cell>
+      <mat-cell image_cell *matCellDef="let element" title cell_center> 
+
+		<img class="table-user rounded-circle img-thumbnail" src="assets/media/users/default-avatar.jpg" *ngIf="errors.indexOf(element.pic)>=0">
+		<img class="table-user rounded-circle img-thumbnail" src="{{picUrl}}{{element.pic}}" *ngIf="errors.indexOf(element.pic)==-1">
+		
+	 </mat-cell>
+    </ng-container>	
+	<!-- Name Column -->
+    <ng-container matColumnDef="name" >
+      <mat-header-cell *matHeaderCellDef cell_center name_w> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element" cell_center  name_w> {{element.name}} </mat-cell>
+    </ng-container>
+	<!-- Name Column -->
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef title cell_center> Email </mat-header-cell>
+      <mat-cell *matCellDef="let element" title cell_center> {{element.email}} </mat-cell>
+    </ng-container>
+	 <ng-container matColumnDef="phone">
+      <mat-header-cell *matHeaderCellDef cell_center> Phone </mat-header-cell>
+      <mat-cell *matCellDef="let element" cell_center> {{element.phone}} </mat-cell>
+    </ng-container>
+	<!-- matches Column -->
+    <ng-container matColumnDef="matches">
+      <mat-header-cell *matHeaderCellDef cell_center> Total Matches </mat-header-cell>
+      <mat-cell *matCellDef="let element" cell_center> <a href="javascript:void(0)"><span class="badge badge-secondary max-width-90">{{element.matches}}</span></a> </mat-cell>
+    </ng-container>
+
+    <!-- Created Column -->
+    <ng-container matColumnDef="location">
+		<mat-header-cell *matHeaderCellDef cell_center> Location </mat-header-cell>
+		<mat-cell *matCellDef="let element" cell_center> {{element.city}}</mat-cell>
+	  </ng-container>
+
+	 <!--ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef last> Action </mat-header-cell>
+      <mat-cell *matCellDef="let element" last>
+	 	 <button  routerLink="/demo1/places/editplace" mat-icon-button color="pink" matTooltip="Edit">
+	    <mat-icon>create</mat-icon>
+	</button>
+	  
+	  </mat-cell>
+    </ng-container-->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  
+			</kt-portlet-body>
+		</kt-portlet>
+	</div>
+	<div class="col-xl-12">
+		<kt-portlet [class]="'kt-portlet--height-fluid'">
+			<kt-portlet-header [title]="'Recent Players'" [class]="'kt-portlet__head--lg  kt-portlet__head--break-sm'">
+				<ng-container ktPortletTools>				
+				</ng-container>
+			</kt-portlet-header>
+			<kt-portlet-body [class]="''">
+			<!--kt-data-table></kt-data-table-->
+  <mat-table #table [dataSource]="dataSource1"  class="mb-3">
+    <ng-container matColumnDef="position">
+      <mat-header-cell *matHeaderCellDef id_col> Sr. No </mat-header-cell>
+      <mat-cell *matCellDef="let element" id_col> </mat-cell>
+	</ng-container>
+	<!-- Image Column -->
+    <ng-container matColumnDef="imageurl" >
+      <mat-header-cell image_cell *matHeaderCellDef title cell_center> Image </mat-header-cell>
+      <mat-cell image_cell *matCellDef="let element" title cell_center>
+		  
+		<img class="table-user rounded-circle img-thumbnail" src="assets/media/users/default-avatar.jpg" *ngIf="errors.indexOf(element.pic)>=0">
+		<img class="table-user rounded-circle img-thumbnail" src="{{p_picUrl}}{{element.pic}}" *ngIf="errors.indexOf(element.pic)==-1">
+
+
+	 </mat-cell>
+    </ng-container>	
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef title cell_center name_w> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element" title cell_center name_w> {{element.name}} </mat-cell>
+    </ng-container>
+    <!-- Date Column -->
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef title cell_center> Email </mat-header-cell>
+	<mat-cell *matCellDef="let element" title cell_center> {{element.email}}</mat-cell>
+    </ng-container>
+	   <ng-container matColumnDef="phone">
+      <mat-header-cell *matHeaderCellDef cell_center> Points </mat-header-cell>
+      <mat-cell *matCellDef="let element" cell_center> <ngx-stars [readonly]="true" [size]="1" [initialStars]="element?.points" [customStarIcons]="heartIcons"></ngx-stars></mat-cell>
+	</ng-container>
+	
+	<ng-container matColumnDef="matchesplayed">
+      <mat-header-cell *matHeaderCellDef cell_center_heading cell_center> Matches Played</mat-header-cell>
+      <mat-cell cell_center *matCellDef="let element" cell_center> <span class="badge badge-secondary max-width-90">{{element.matches}}</span> </mat-cell>
+    </ng-container>
+	<!--ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef last> Action </mat-header-cell>
+      <mat-cell *matCellDef="let element" last>
+	 <button  routerLink="/demo1/events/editevent" mat-icon-button color="pink" matTooltip="Edit">
+	    <mat-icon>create</mat-icon>
+	</button>	  
+	  </mat-cell>
+    </ng-container-->
+    <mat-header-row *matHeaderRowDef="displayedColumns1"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns1;"></mat-row>
+  </mat-table>
+  
+			</kt-portlet-body>
+		</kt-portlet>
+	</div>
+	
+</div>
+

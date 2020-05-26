@@ -1,0 +1,134 @@
+<div class="kt-portlet">
+		<div class="kt-portlet__head">
+	     <div class="kt-portlet__head-label">
+		    <h3 class="kt-portlet__head-title"><span>Profile</span></h3>
+		 </div>
+
+	</div>
+		<div class="kt-portlet__body">
+	        	<div class="row">
+	        	<div class="col-lg-4">
+				
+				 <div class="card  user-profile" >
+				  
+					  <div class="card-body text-center">
+						  <div class="user-image ">
+							  <img class="rounded-circle img-thumbnail" src="{{imgURL}}"/>
+							  <label  for="user-img"><i class="la la-pencil"></i></label>
+							  <input  id="user-img" #file1 accept='image/*' (change)="preview(file1.files)" name="user-img" style="display:none" type="file">
+						  </div>
+						<h4 class="card-title" >{{static_name}}</h4>
+						<p class="card-content" >{{static_email}}</p>
+					  </div>
+			</div>
+				</div>
+	        	<div class="col-lg-8">
+					
+	        	<div class="row">
+		<form [formGroup]="login" (ngSubmit)="save_edit()">
+		          <div class="col-md-12">
+				   <div class="head">
+				     <h2>Basic Info</h2>
+				   </div>
+				  </div>
+		          <div class="col-md-6">
+
+				  <mat-form-field>
+				  <input type="text" matInput placeholder="First Name" value="John" formControlName="fname">
+			
+				 </mat-form-field>
+				 <div *ngIf="!login.controls.fname.valid && isSubit_property" class="valid">
+						Please enter first name
+				   </div>
+				 </div>
+				  <div class="col-md-6">
+
+				  <mat-form-field>
+				  <input type="text" matInput placeholder="Last Name" value="Doe" formControlName="lname">
+				 </mat-form-field>
+				 <div *ngIf="!login.controls.lname.valid && isSubit_property" class="valid">
+						Please enter last name
+				</div>
+
+				 </div>
+
+				   <div class="col-md-12">
+				   <mat-form-field>
+				  <input type="email" matInput placeholder="Email Address" value="johndoe@gmail.com" formControlName="email">				
+				 </mat-form-field>
+				 <div *ngIf="!login.controls.email.valid && isSubit_property" class="valid">
+						Please enter a valid email
+				</div>
+				 </div>
+				 <div class="col-md-12">
+			     <mat-form-field>
+				  <input type="text" matInput placeholder="Phone No" value="+91 9874563210" formControlName="phone">
+				 </mat-form-field>
+
+				 <div *ngIf="!login.controls.phone.valid && isSubit_property" class="valid">
+						Please enter phone
+				</div>
+			
+
+			 </div>
+			 <div class="col-md-12 mt-3">
+					<button  mat-raised-button color="pink">Save</button>
+				   </div>
+	</form>
+			         <div class="col-md-12 mt-2">
+				   <div class="head">
+				     <h2>Change Password</h2>
+				   </div>
+				  </div>
+
+
+				  <form [formGroup]="resetPassword" (ngSubmit)="resetpass()">
+		          <div class="col-md-6">
+				  <mat-form-field>
+				  <input type="password" matInput placeholder="Password" formControlName="opassword">
+				 </mat-form-field>
+
+				 <div *ngIf="!resetPassword.controls.opassword.valid && is_submit_pass" class="valid" >
+						Please enter your old password
+				</div>
+
+				 </div>
+				  <div class="col-md-6">
+				  <mat-form-field>
+				  <input type="password" matInput placeholder="Confirm Password" formControlName="npassword">
+				 </mat-form-field>
+
+				 <div *ngIf="!resetPassword.controls.npassword.valid && is_submit_pass" class="valid" >
+						Password length should be minimum 6 characters long
+				</div>
+
+				 </div>
+				   <div class="col-md-12">
+				   <mat-form-field>
+				  <input type="password" matInput placeholder="Re-enter Password" formControlName="cpassword">				
+				 </mat-form-field>
+
+				 <div *ngIf="!resetPassword.controls.cpassword.valid && is_submit_pass" class="valid">
+						Please re-enter your new password
+				</div>
+
+				<div *ngIf="dont_match && is_submit_pass" class="valid">
+					Passwords do not match
+				</div>
+
+				 </div>
+			 <div class="col-md-12 mt-3">
+		 <button  type="submit" mat-raised-button color="pink">Save</button>
+		</div>
+		</form>
+	              
+			 </div>
+		
+			 </div>
+			 </div>
+		
+					
+		
+		
+		</div>
+</div> 

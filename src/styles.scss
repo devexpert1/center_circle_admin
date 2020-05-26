@@ -1,0 +1,105 @@
+/* You can add global styles to this file, and also import other style files */
+@import "assets/vendors/global/vendors.bundle.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~material-design-icons/iconfont/material-icons.css";
+@import "~highlight.js/styles/googlecode.css";
+
+// hide bootstrap dropdown arrow globally
+.dropdown-toggle::after {
+	display: none !important;
+}
+
+
+.mat-table__wrapper--dashboard .mat-table {
+	min-width: 600px!important;
+	width: 100% !important;
+}
+
+.position-static {
+	position: static;
+}
+
+
+@font-face {
+  font-family: "match-app";
+  src:url("fonts/match-app.eot");
+  src:url("fonts/match-app.eot?#iefix") format("embedded-opentype"),
+    url("fonts/match-app.woff") format("woff"),
+    url("fonts/match-app.ttf") format("truetype"),
+    url("fonts/match-app.svg#match-app") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "match-app" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "match-app" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-clock:before {
+  content: "\61";
+}
+.icon-stadium:before {
+  content: "\62";
+}
+.icon-calendar:before {
+  content: "\63";
+}
+.icon-footbal-play:before {
+  content: "\64";
+}
+.icon-tournament:before {
+  content: "\65";
+}
+.icon-match-list:before {
+  content: "\66";
+}
+.icon-user-profiles:before {
+  content: "\67";
+}
+.icon-clock-1:before {
+  content: "\68";
+}
+.icon-mail:before {
+  content: "\69";
+}
+
+
+.icon-footbal-play{
+	font-size: 22px;
+    position: relative;
+    top: 4px;
+}
+
+[image_cell]{
+  max-width: 80px;
+}
+
+[cell_center]{
+  display:flex;
+  justify-content: center;
+  text-align:center;
+}
+

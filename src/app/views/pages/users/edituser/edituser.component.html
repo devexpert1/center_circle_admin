@@ -1,0 +1,289 @@
+<div class="kt-portlet">
+	<div class="kt-portlet__head">
+	 <div class="kt-portlet__head-label">
+		<h3 class="kt-portlet__head-title"><span>Add Owner</span></h3>
+	 </div>
+	 <div class="kt-portlet__head-toolbar">
+	  <button  routerLink="/demo1/users/" mat-raised-button color="yellow">Back To Owners</button>
+	 </div>
+</div>
+	<div class="kt-portlet__body">
+			
+		<div class="row">
+				<form [formGroup]="login" (ngSubmit)="justlogin()">
+				<div class="col-lg-4">
+				
+				 <div class="card  user-profile" >
+
+					  <div class="card-body text-center">
+						  <div class="user-image ">
+							  
+							  <img class="rounded-circle img-thumbnail" [src]="imgURL"/>
+							  <label  for="user-img"><i class="la la-plus"></i></label>
+							  <input  id="user-img" #file1 accept='image/*' (change)="preview(file1.files)" name="user-img" style="display:none" type="file">
+						  </div>
+						
+					  </div>
+			</div>
+				</div>
+				<div class="col-lg-8">
+				<h2 class="heading"> Basic Info</h2>
+				<div class="row">
+				  <div class="col-md-6">
+				  <mat-form-field>
+				  <input type="text" matInput placeholder="First Name" value="" formControlName="fname">
+				 </mat-form-field>
+
+				 <div *ngIf="!login.controls.fname.valid && is_submit" class="valid">
+						Please enter first name
+				</div>
+
+				 </div>
+				  <div class="col-md-6">
+				  <mat-form-field>
+				  <input type="text" matInput placeholder="Last Name" value="" formControlName="lname">
+				 </mat-form-field>
+
+				 <div *ngIf="!login.controls.lname.valid && is_submit" class="valid">
+						Please enter last name
+				</div>
+				 </div>
+				  <div class="col-md-6">
+				   <mat-form-field>
+				  <input type="email" matInput placeholder="Email Address" value="" formControlName="email">				
+				 </mat-form-field>
+
+				 <div *ngIf="!login.controls.email.valid && is_submit" class="valid">
+						Please enter a valid email
+				</div>
+				 </div>
+
+				 <div class="col-md-6">
+					<mat-form-field>
+					   <input type="password" matInput placeholder="New Password" value="" formControlName="password">				
+					</mat-form-field>
+ 
+					<div *ngIf="pass_error && is_submit" class="valid">
+							 Please enter new password
+				   </div>
+
+				   <div *ngIf="less_6 && is_submit" class="valid">
+						Password length should be atleast 6 characters
+				  </div>
+				  
+				 </div>
+				 
+
+				 <div class="col-md-6">
+					<mat-form-field>
+					   <input type="password" matInput placeholder="Confirm Password" value="" formControlName="confirm_password">				
+					</mat-form-field>
+ 
+					<div *ngIf="dontmatch && is_submit" class="valid">
+							 Passwords do not match
+				   </div>
+
+				   <div *ngIf="cpass_error && is_submit" class="valid">
+						Please confirm password
+			      </div>
+
+				 </div>
+
+
+				 <div class="col-md-6">
+				 <mat-form-field>
+				  <input type="number" matInput placeholder="Phone No" value="" formControlName="phone">
+				 </mat-form-field>
+
+				 <div *ngIf="!login.controls.phone.valid && is_submit" class="valid">
+						Please enter phone
+				</div>
+				</div>
+
+				<div class="col-md-6">
+						<mat-form-field>
+							 <mat-select placeholder="Select Country" formControlName="fname" formControlName="country">
+								 <mat-option value="option1">India</mat-option>
+								 <mat-option value="option2">USA</mat-option>
+								 <mat-option value="option3">Canada</mat-option>
+								 <mat-option value="option4">Australia</mat-option>
+							 </mat-select>		  
+						</mat-form-field>
+ 
+						 <div *ngIf="!login.controls.country.valid && is_submit" class="valid">
+							   Please enter country
+						 </div>
+					  </div>
+					  
+			  <div class="col-md-6">
+				   <mat-form-field>
+				  <input type="text" matInput placeholder="State" value="" formControlName="state">				
+				 </mat-form-field>
+
+				 <div *ngIf="!login.controls.state.valid && is_submit" class="valid">
+						Please enter state
+				</div>
+				 </div>
+				  <div class="col-md-6">
+				   <mat-form-field>
+				  <input type="text" matInput placeholder="City" value="" formControlName="city">				
+				 </mat-form-field>
+
+				 <div *ngIf="!login.controls.city.valid && is_submit" class="valid">
+						Please enter city
+				</div>
+				 </div>
+
+				 <div class="col-md-6">
+				<mat-form-field>
+					<input type="text" matInput placeholder="Zipcode" value="" formControlName="zip">				
+				 </mat-form-field>
+
+				 <div *ngIf="!login.controls.zip.valid && is_submit" class="valid">
+						Please enter zipcode
+				</div>
+				 </div>
+			 <div class="col-md-12 mt-3">
+
+			
+	
+	<button  mat-raised-button color="pink" type="submit">
+			<mat-progress-spinner [mode]="'indeterminate'" *ngIf="loading" style="width:24px">
+	</mat-progress-spinner>Save</button>
+
+		</div>
+			 </div>
+			 </div>
+			 </form>
+			 </div>
+			 <hr class="mt-5">
+			<div class="row mt-5">
+					
+
+				<div class="col-lg-12">
+				<h2 class="heading"> Property Info</h2>
+				<div class="row">
+				<form [formGroup]="addpropertyfun" (ngSubmit)="addProperty()">
+				
+				  <!-- <div class="col-md-6">
+				  <mat-form-field>
+				  <input type="email" matInput placeholder="Owner's email" value="" formControlName="email">
+				 </mat-form-field>
+
+				 <div *ngIf="!addpropertyfun.controls.email.valid && isSubit_property" class="valid">
+						Please enter owner's email
+				</div> 
+				 </div> -->
+
+				 <div class="col-md-6">
+					<mat-form-field>
+					<input type="text" matInput placeholder="Property Name" value="" formControlName="name">
+				   </mat-form-field>
+
+				  <div *ngIf="!addpropertyfun.controls.name.valid && isSubit_property" class="valid">
+						  Please enter name
+				  </div>
+				</div>
+				   
+				  <div class="col-md-6">
+				  <mat-form-field>
+				  <input type="text" matInput placeholder="Area" value="" formControlName="area">
+				 </mat-form-field>
+
+				 <div *ngIf="!addpropertyfun.controls.area.valid && isSubit_property" class="valid">
+					Please enter area
+				 </div>
+				 </div>
+				  <div class="col-md-6">
+				  <mat-form-field>
+				  <input type="text" matInput placeholder="State" value="" formControlName="state">				
+				 </mat-form-field>
+
+				 <div *ngIf="!addpropertyfun.controls.state.valid && isSubit_property" class="valid">
+					Please enter state
+				 </div>
+				 </div>
+				  <div class="col-md-6">
+				   <mat-form-field>
+				  <input type="text" matInput placeholder="City" value="" formControlName="city">				
+				 </mat-form-field>
+
+				 <div *ngIf="!addpropertyfun.controls.city.valid && isSubit_property" class="valid">
+					Please enter city
+				</div>
+
+				 </div>
+				  <div class="col-md-6">
+				   <mat-form-field>
+				  <input type="text" matInput placeholder="Zipcode" value="" formControlName="zip">				
+				 </mat-form-field>
+
+				 <div *ngIf="!addpropertyfun.controls.zip.valid && isSubit_property" class="valid">
+					Please enter zipcode
+				</div>
+				 </div>
+				  <div class="col-md-6">
+				  <!-- <mat-form-field>
+				  <input type="text" matInput placeholder="Address" value="" formControlName="address">
+				 </mat-form-field> -->
+                 <ng4geo-autocomplete (componentCallback)="latlong($event)" ></ng4geo-autocomplete>
+				 <div *ngIf="!address_reuired && isSubit_property" class="valid" style="color:#ca0101;">
+					Please enter address
+				</div>
+
+				 </div>
+				 <br>
+				 <br>
+				 <br>
+				 <div class="col-md-12 mb-4">
+				
+						<label>Location On Map </label>
+						<agm-map 
+						[latitude]="lat" 
+						[longitude]="lng" 
+						[zoom]="zoom" >
+						  <agm-marker 
+						  [latitude]="lat" 
+						  [longitude]="lng"></agm-marker>
+						</agm-map>
+				
+						 
+					
+					
+				 </div>
+				 <div class="col-md-8">
+					<mat-form-field>
+				   <textarea  matInput placeholder="Property Description" value="" prt_description formControlName="descr"></textarea>				
+				  </mat-form-field>
+
+				  <div *ngIf="!addpropertyfun.controls.descr.valid && isSubit_property" class="valid">
+					Please enter description
+				  </div>
+
+				  </div>
+				 <div class="col-lg-4">
+					<div class="property_img">
+						<img class="rounded-circle img-thumbnail" [src]="propertyImg">
+						<label  for="prpty-img"><span>Add Image</span></label>
+						<input  id="prpty-img" #property name="user-img" style="display:none" type="file" (change)="propertypic(property.files)">
+					</div>
+				</div>					
+			 <div class="col-md-12 mt-3"> 
+		 <button  mat-raised-button color="pink" type="submit">	<mat-progress-spinner [mode]="'indeterminate'" *ngIf="ploading" style="width:24px">
+		</mat-progress-spinner>Save</button>
+		</div>
+	</form>
+						 </div>
+					</div>
+			 </div>
+
+</div> 
+
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#9784ed"
+type="square-loader"
+>
+<p style="font-size: 20px; color: white">Please wait...</p>
+</ngx-spinner>

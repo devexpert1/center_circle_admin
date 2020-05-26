@@ -1,0 +1,109 @@
+<div class="kt-portlet">
+	<div class="kt-portlet__head">
+	     <div class="kt-portlet__head-label">
+		    <h3 class="kt-portlet__head-title"><span> Matches Played</span></h3>
+		 </div>
+		
+  </div>
+  <div class="kt-portlet__body">
+	
+    <mat-form-field class="mat-form-field-infix">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+    </mat-form-field>
+  
+ <div class="mat-table__wrapper"> 
+ <mat-table #table [dataSource]="dataSource2">  
+     <ng-container matColumnDef="select">
+    <mat-header-cell *matHeaderCellDef check mx-w-60>
+      <mat-checkbox (change)="$event ? masterToggle() : null"
+        [checked]="selection.hasValue() && isAllSelected()"
+        [indeterminate]="selection.hasValue() && !isAllSelected()">
+      </mat-checkbox>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" check mx-w-60>
+      <mat-checkbox (click)="$event.stopPropagation()"
+        (change)="$event ? selection.toggle(row) : null"
+        [checked]="selection.isSelected(row)">
+      </mat-checkbox>
+    </mat-cell>
+  </ng-container>
+	
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef cell_center> Match Name </mat-header-cell>
+    <mat-cell *matCellDef="let element2" cell_center> {{element2.name}} </mat-cell>
+  </ng-container>
+<!-- Location Column -->
+  <ng-container matColumnDef="location">
+    <mat-header-cell *matHeaderCellDef cell_center> Location </mat-header-cell>
+    <mat-cell *matCellDef="let element2" cell_center>{{element2.location}} </mat-cell>
+  </ng-container>
+    <ng-container matColumnDef="startdate">
+    <mat-header-cell *matHeaderCellDef title mx-w-100 cell_center>Date </mat-header-cell>
+    <mat-cell *matCellDef="let element2" title mx-w-100 cell_center> <span class="badge badge-secondary">{{element2.startdate}}</span> </mat-cell>
+  </ng-container>
+    <!-- Start Time Column -->
+  <ng-container matColumnDef="starttime">
+    <mat-header-cell *matHeaderCellDef title mx-w-80 cell_center> Start Time </mat-header-cell>
+    <mat-cell *matCellDef="let element2" title mx-w-80 cell_center> <span class="badge badge-secondary">{{element2.starttime}}</span> </mat-cell>
+  </ng-container>
+    <!-- End Time Column -->
+  <ng-container matColumnDef="endtime">
+    <mat-header-cell *matHeaderCellDef title mx-w-80 cell_center> End Time </mat-header-cell>
+    <mat-cell *matCellDef="let element2" title mx-w-80 cell_center> <span class="badge badge-secondary">{{element2.endtime}}</span> </mat-cell>
+  </ng-container>
+    <!-- Player Joined Column -->
+  <ng-container matColumnDef="playerjoined">
+    <mat-header-cell *matHeaderCellDef title cell_center>  Players Joined </mat-header-cell>
+    <mat-cell *matCellDef="let element2" title cell_center> {{element2.playerjoined}}</mat-cell>
+  </ng-container>
+
+  <!-- Action Column -->
+  <ng-container matColumnDef="action">
+    <mat-header-cell *matHeaderCellDef cell_center> Action </mat-header-cell>
+    <mat-cell *matCellDef="let element2" cell_center>
+      
+      <!--button  routerLink="/demo1/matches/match-results" mat-icon-button color="pink" matTooltip="Match Results">
+        <i class="icon icon-footbal-play"></i>
+      </button>&nbsp;  -->
+      <button  routerLink="/demo1/matches/match-detail" mat-icon-button color="pink" matTooltip="Match Details">
+        <i class="fas fa-futbol"></i>
+      </button>&nbsp; 
+          <button (click)="open(content)" mat-icon-button color="danger" matTooltip="Delete" type="button" (click)="deleteUser(user)">
+            <mat-icon>delete</mat-icon>
+          </button>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns2"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns2;"></mat-row>
+</mat-table>
+</div>
+  <mat-paginator #paginator
+  [pageSize]="10"
+  [pageSizeOptions]="[5, 10, 20]"
+  [showFirstLastButtons]="true">
+</mat-paginator>
+</div>
+
+
+
+</div>
+<div class="kt-section">
+  <div class="kt-section__content">
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-body">
+	   <button type="button" class="close close-modal" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+		<div  class="modal-inner text-center">
+			 <i class="flaticon2-close-cross fa-4x close-icon"></i>
+			 <h4>Are You Sure ?</h4>
+			 <p class="mb-0">Are you sure you want to delete this records? This process cannot be undone</p>
+         </div>
+      </div>
+      <div class="modal-footer no-border pt-0 justify-content-center pb-4">
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cancel</button>
+        <button type="button" class="btn btn-danger">Delete</button>
+      </div>
+    </ng-template>
+  </div>
+</div>

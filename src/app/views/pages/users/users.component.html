@@ -1,0 +1,111 @@
+<div class="kt-portlet">
+	<div class="kt-portlet__head">
+	     <div class="kt-portlet__head-label">
+		    <h3 class="kt-portlet__head-title"><span>All Owners</span></h3>
+		 </div>
+		 <div class="kt-portlet__head-toolbar">
+		  <button routerLink="/demo1/users/adduser" mat-raised-button color="yellow">Add Owner</button>
+		 </div>
+	</div>
+	
+	<div class="kt-portlet__body">
+	
+		  <mat-form-field class="mat-form-field-infix">
+			<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+		  </mat-form-field>
+	  
+	 <div class="mat-table__wrapper"> 
+   <mat-table #table [dataSource]="dataSource">  
+    
+	<!-- Image Column -->
+    <ng-container  matColumnDef="imageurl" >
+      <mat-header-cell img_box *matHeaderCellDef title cell_center> Image </mat-header-cell>
+      <mat-cell img_box *matCellDef="let element" title cell_center>
+         <img class="table-user rounded-circle img-thumbnail" *ngIf="errors.indexOf(element.pic)>=0" src="assets/media/users/default-avatar.jpg"/>
+        <img class="table-user rounded-circle img-thumbnail" *ngIf="errors.indexOf(element.pic)==-1" src="{{picUrl}}{{element.pic}}"/>
+	 </mat-cell>
+    </ng-container>	
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef cell_center> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element" cell_center><span *ngIf="errors.indexOf(element.fname)==-1"> {{element?.fname[0]?.toUpperCase()+element?.fname?.slice(1)}} {{element?.lname[0]?.toUpperCase()+element?.lname?.slice(1)}}</span>  </mat-cell>
+    </ng-container>
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef width20 cell_center> Email </mat-header-cell>
+      <mat-cell *matCellDef="let element" width20 cell_center> {{element.email}} </mat-cell>
+    </ng-container>
+	    <!-- Phone Column -->
+      <ng-container matColumnDef="phone">
+        <mat-header-cell *matHeaderCellDef width10 cell_center> Phone </mat-header-cell>
+        <mat-cell *matCellDef="let element" width10 cell_center> {{element.phone}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="location">
+        <mat-header-cell *matHeaderCellDef width15 cell_center> Location </mat-header-cell>
+        <mat-cell *matCellDef="let element" width15 cell_center>
+          <span *ngIf="errors.indexOf(element.city)==-1 ">{{element.city}}, {{element.state}}, {{element.country}}, {{element.zip}}</span> 
+          <span *ngIf="errors.indexOf(element.city)>=0 ">No data</span> 
+        </mat-cell>
+      </ng-container>
+	  <ng-container matColumnDef="todaymatch">
+        <mat-header-cell *matHeaderCellDef width10 cell_center> Today's Matches </mat-header-cell>
+        <mat-cell *matCellDef="let element" width10 cell_center> <a href="javascript:void(0)" routerLink="/demo1/users/single-ownermatch"><span class="badge badge-secondary max-width-90"> {{element.today_matches}}</span></a></mat-cell>
+      </ng-container>
+		  <!-- matches Column -->
+    <ng-container matColumnDef="matches">   
+      <mat-header-cell *matHeaderCellDef title cell_center width10>Total Matches </mat-header-cell>
+      <mat-cell *matCellDef="let element" title cell_center width10> <a href="javascript:void(0)" routerLink="/demo1/users/single-ownermatch"><span class="badge badge-secondary max-width-90">{{element.total_matches}}</span></a> </mat-cell>
+    </ng-container> 
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef cell_center> Action </mat-header-cell>
+      <mat-cell *matCellDef="let element; let i = index;" cell_center>
+		                <button  routerLink="/demo1/users/edituser/{{element._id}}" mat-icon-button color="pink" matTooltip="Edit Owners">
+							<mat-icon>create</mat-icon>
+						</button>&nbsp;
+						<button (click)="open(content)" mat-icon-button color="danger" matTooltip="Delete" type="button" (click)="whichUser(i,element._id )">
+							<mat-icon>delete</mat-icon>
+						</button>
+		  </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
+    <mat-paginator #paginator
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 20]"
+    [showFirstLastButtons]="true" >
+  </mat-paginator>
+</div>
+</div>
+
+<div class="kt-section">
+  <div class="kt-section__content">
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-body">
+	   <button type="button" class="close close-modal" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+    </button>
+		<div  class="modal-inner text-center">
+			 <i class="flaticon2-close-cross fa-4x close-icon"></i>
+			 <h4>Are You Sure ?</h4>
+			 <p class="mb-0">Are you sure you want to delete this records? This process cannot be undone</p>
+         </div>
+      </div>
+      <div class="modal-footer no-border pt-0 justify-content-center pb-4">
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="deleteIt()">Delete</button>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#9784ed"
+  type="pacman"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
