@@ -1,0 +1,39 @@
+[pos] , [check]   
+{
+ flex: 0 0 7% ;
+  width: 7% ;
+}
+[width25]
+{
+ flex: 0 0 25% ;
+  width: 25% ;
+}
+[width20]
+{
+ flex: 0 0 20% ;
+  width: 20% ;
+}
+[width10]
+{
+ flex: 0 0 10% ;
+  width: 10% ;
+}
+
+[width15]
+{
+ flex: 0 0 15% ;
+  width: 15% ;
+}
+
+[img_box]{
+	max-width:80px;
+}
+.kt-portlet .kt-portlet__body{
+  padding-top:0;
+}
+.img-thumbnail{
+  max-width: 142%;
+  max-height: 65px;
+  height: 94px;
+  width: 101px;
+}

@@ -1,0 +1,129 @@
+mat-form-field {
+    width: 100%;
+}
+img.card-img-top {
+    object-fit: cover;
+    max-height: 130px;
+}
+.form-group
+{    margin: 0;    width: 100%;
+label
+{
+    color: #757576;    width: 100%;
+}
+
+.e-droptext
+{ 
+.fa
+{
+color:#f7a61f;  margin-bottom: 15px;
+}
+    border: dashed 2px rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+    color: rgba(0, 0, 0, 0.38);
+    display: table-cell;
+    font-size: 14px;
+    height: 65px;
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+    vertical-align: middle;
+    min-width: 300px;
+}.e-droptext1
+{ 
+.fa
+{
+color:#f7a61f;  margin-bottom: 15px;
+}
+    border: dashed 2px rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+    color: rgba(0, 0, 0, 0.38);
+    display: block;
+    font-size: 14px;
+    height: 165px;
+    margin: 0 auto;
+	padding:40px;
+    text-align: center;
+    width: 100%;
+    vertical-align: middle;
+   
+}
+
+
+}
+h2.heading {
+    font-size: 18px;
+    color: #000;
+    border-left: 4px solid #009d00;
+    padding: 4px 10px;
+    margin-bottom: 20px;
+}hr {
+    width: 100%;
+}
+
+.property_img 
+{
+    position: relative;
+    text-align: center;
+    margin: 0 auto;
+    img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 0 !important;
+        object-position: top;
+    }
+    label{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        bottom: 5px;
+        left: 5px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background:rgba(0, 0, 0, 0.20);
+        height: 95.2%;
+        span{
+            background: #009d00;
+            text-align: center;
+            margin-top: 14px;
+            display:inline-block;
+            padding-left: 14px;
+            padding-right: 14px;
+            color: #ffffff;
+            position: relative;
+            box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+            bottom: 0;
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 33px;
+        }
+    }
+}
+
+.user-profile .user-image {
+    width: 90px;
+    height: 90px;
+    position: relative;
+    margin: 0 auto;
+}
+.map_field{
+    label{
+        color: rgba(0, 0, 0, 0.54);
+    -webkit-transform: translateY(calc(-1.28125em - .5px)) scale(0.75) perspective(100px) translateZ(0.001px);
+    transform: translateY(calc(0em - .5px)) scale(0.75) perspective(1px) translateZ(0px);
+    -ms-transform: translateY(calc(-1.28125em - .5px)) scale(0.75);
+    font-size: 18px;
+    margin-left: -13px;
+    }
+}
+[prt_description]{
+    min-height:160px;
+}
+
+agm-map {
+    height: 300px !important;
+    width: 100%;  /* This is really important*/
+  }

@@ -1,0 +1,197 @@
+<div class="kt-portlet">
+	<div class="kt-portlet__head">
+	     <div class="kt-portlet__head-label">
+		    <h3 class="kt-portlet__head-title"><span>Match Details</span></h3>
+		 </div>
+		 <div class="kt-portlet__head-toolbar">
+		  <button routerLink="/demo1/matches" mat-raised-button color="yellow">Back To Matches</button>
+		 </div>
+    </div>
+    <div class="kt-portlet__body">
+    <div class="bg-chng-ne mb-5">
+      <div class="row align-items-center">
+        <div class="col-lg-4">
+          <div class="owner_profile" style="background:url('assets/media/bg/bg-4.jpg');">
+
+            <img class="rounded-circle img-thumbnail" src="assets/media/users/300_12.jpg" *ngIf="errors.indexOf(matchlist?.owner.pic)>=0">
+            <img class="rounded-circle img-thumbnail" src="{{murl}}{{matchlist?.owner.pic}}" *ngIf="errors.indexOf(matchlist?.owner.pic)==-1"/>
+            <div class="owner_info">
+              <h4>Facility<span>Match Organizer</span></h4>
+              <h4>{{noOfPlayers}} joined</h4>
+            </div>
+          </div>
+        </div>
+
+          <div class="col-lg-8">
+            <div class="row">
+              <div class="col-md-6 mb-15">
+                <div class="match_info">
+                <i class="icon icon-calendar"></i>
+                <div class="match_in">
+                  <strong>Date</strong>
+                 {{matchlist?.match.date | date : 'd MMM, y' }}
+                </div>
+              </div>
+              </div>
+              <div class="col-md-6 mb-15">
+                <div class="match_info">
+                  <i class="icon icon-clock-1"></i>
+                  <div class="match_in">
+                    <strong>Time</strong>
+               {{matchlist?.match.stime}} - {{matchlist?.match.etime}}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="match_info">
+                  <i class="icon icon-stadium"></i>
+                  <div class="match_in">
+                  <strong>{{matchlist?.location.name}} <span>{{matchlist?.match.location }}</span></strong>
+                    <!-- {{allData.match?.date}} -->
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+           
+        </div>
+    </div>
+      <h4 class="team_names"  *ngIf="getjoinres?.players1.length==0 && getjoinres?.players2.length==0 && getjoinres?.players3.length==0">No Player Has Joined Yet</h4>  
+      <h4 class="team_names"  *ngIf="getjoinres?.players1.length!=0">{{team_1}}</h4>  
+        <mat-table #table [dataSource]="dataSource" *ngIf="getjoinres?.players1.length!=0">
+            <!--- Note that these columns can be defined in any order.
+                        The actual rendered columns are set as a property on the row definition" -->
+            <!-- Image Column -->
+            <ng-container matColumnDef="sr_no">
+              <mat-header-cell *matHeaderCellDef cell_center serial_number> Sr. No </mat-header-cell>
+              <mat-cell *matCellDef="let element; let i=index" cell_center serial_number> {{i+1}} </mat-cell>
+            </ng-container>
+
+
+            <!-- Image Column -->
+            <ng-container matColumnDef="imageurl">
+              <mat-header-cell *matHeaderCellDef title cell_center mx-w-80> Image </mat-header-cell>
+              <mat-cell *matCellDef="let element" title cell_center mx-w-80> <img class="table-user rounded-circle img-thumbnail" src="assets/media/users/default-avatar.jpg" *ngIf="errors.indexOf(element.pic)>=0"/>
+                <img class="table-user rounded-circle img-thumbnail" src="{{uurl}}{{element.pic}}" *ngIf="errors.indexOf(element.pic)==-1"/>
+             </mat-cell>
+            </ng-container>	
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef cell_center> Name </mat-header-cell>
+              <mat-cell *matCellDef="let element" cell_center> {{element.fname[0].toUpperCase()+element.fname.slice(1)}} {{element.lname[0].toUpperCase()+element.lname.slice(1)}} </mat-cell>
+            </ng-container>
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+              <mat-header-cell *matHeaderCellDef cell_center> Position </mat-header-cell>
+              <mat-cell *matCellDef="let element" cell_center> {{element.position}} </mat-cell>
+          </ng-container>
+
+     
+     
+            <!-- Goals Column -->
+            <ng-container matColumnDef="goals">
+              <mat-header-cell *matHeaderCellDef cell_center> Goals </mat-header-cell>
+              <mat-cell *matCellDef="let element" cell_center> {{element.goals}} </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+
+
+
+
+            <h4 class="team_names"  *ngIf="getjoinres?.players2.length!=0">{{team_2}}</h4>  
+        <mat-table #table [dataSource]="dataSource1"  *ngIf="getjoinres?.players2.length!=0">
+            <!--- Note that these columns can be defined in any order.
+                        The actual rendered columns are set as a property on the row definition" -->
+            <!-- Image Column -->
+            <ng-container matColumnDef="sr_no">
+              <mat-header-cell *matHeaderCellDef cell_center serial_number> Sr. No </mat-header-cell>
+              <mat-cell *matCellDef="let element; let i=index" cell_center serial_number> {{i+1}} </mat-cell>
+            </ng-container>
+
+
+            <!-- Image Column -->
+            <ng-container matColumnDef="imageurl">
+              <mat-header-cell *matHeaderCellDef title cell_center mx-w-80> Image </mat-header-cell>
+              <mat-cell *matCellDef="let element" title cell_center mx-w-80> <img class="table-user rounded-circle img-thumbnail" src="assets/media/users/default-avatar.jpg" *ngIf="errors.indexOf(element.pic)>=0"/>
+                <img class="table-user rounded-circle img-thumbnail" src="{{uurl}}{{element.pic}}" *ngIf="errors.indexOf(element.pic)==-1"/>
+             </mat-cell>
+            </ng-container> 
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef cell_center> Name </mat-header-cell>
+              <mat-cell *matCellDef="let element" cell_center> {{element.fname[0].toUpperCase()+element.fname.slice(1)}} {{element.lname[0].toUpperCase()+element.lname.slice(1)}} </mat-cell>
+            </ng-container>
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+              <mat-header-cell *matHeaderCellDef cell_center> Position </mat-header-cell>
+              <mat-cell *matCellDef="let element" cell_center> {{element.position}} </mat-cell>
+          </ng-container>
+
+     
+     
+            <!-- Goals Column -->
+            <ng-container matColumnDef="goals">
+              <mat-header-cell *matHeaderCellDef cell_center> Goals </mat-header-cell>
+              <mat-cell *matCellDef="let element" cell_center> {{element.goals}} </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+
+
+
+            <h4 class="team_names"  *ngIf="getjoinres?.players3.length!=0">Random Team</h4>  
+        <mat-table #table [dataSource]="dataSource2"  *ngIf="getjoinres?.players3.length!=0">
+            <!--- Note that these columns can be defined in any order.
+                        The actual rendered columns are set as a property on the row definition" -->
+            <!-- Image Column -->
+            <ng-container matColumnDef="sr_no">
+              <mat-header-cell *matHeaderCellDef cell_center serial_number> Sr. No </mat-header-cell>
+              <mat-cell *matCellDef="let element; let i=index" cell_center serial_number> {{i+1}} </mat-cell>
+            </ng-container>
+
+
+            <!-- Image Column -->
+            <ng-container matColumnDef="imageurl">
+              <mat-header-cell *matHeaderCellDef title cell_center mx-w-80> Image </mat-header-cell>
+              <mat-cell *matCellDef="let element" title cell_center mx-w-80> <img class="table-user rounded-circle img-thumbnail" src="assets/media/users/default-avatar.jpg" *ngIf="errors.indexOf(element.pic)>=0"/>
+                <img class="table-user rounded-circle img-thumbnail" src="{{uurl}}{{element.pic}}" *ngIf="errors.indexOf(element.pic)==-1"/>
+             </mat-cell>
+            </ng-container> 
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef cell_center> Name </mat-header-cell>
+              <mat-cell *matCellDef="let element" cell_center> {{element.fname[0].toUpperCase()+element.fname.slice(1)}} {{element.lname[0].toUpperCase()+element.lname.slice(1)}} </mat-cell>
+            </ng-container>
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+              <mat-header-cell *matHeaderCellDef cell_center> Position </mat-header-cell>
+              <mat-cell *matCellDef="let element" cell_center> {{element.position}} </mat-cell>
+          </ng-container>
+
+     
+     
+            <!-- Goals Column -->
+            <ng-container matColumnDef="goals">
+              <mat-header-cell *matHeaderCellDef cell_center> Goals </mat-header-cell>
+              <mat-cell *matCellDef="let element" cell_center> {{element.goals}} </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+
+    </div>
+
+  <ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#9784ed"
+type="ball-clip-rotate"
+  >
+  <p style="font-size: 20px; color: white">Please wait...</p>
+  </ngx-spinner>
+  
+  

@@ -1,0 +1,77 @@
+<div class="kt-portlet">
+	<div class="kt-portlet__head">
+	     <div class="kt-portlet__head-label">
+		    <h3 class="kt-portlet__head-title"><span>My Transactions</span></h3>
+		 </div>
+		 
+	</div>
+	
+	<div class="kt-portlet__body">
+	
+	 
+	  
+	 <div class="mat-table__wrapper"> 
+
+   <mat-table #table [dataSource]="dataSource">  
+    
+	<!-- Image Column -->
+ 
+
+    <ng-container matColumnDef="match">
+      <mat-header-cell *matHeaderCellDef  cell_center> Match Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"  cell_center> 
+        {{element.match.name}} 
+         
+      </mat-cell>
+    </ng-container>
+
+       <ng-container matColumnDef="player_img">
+      <mat-header-cell *matHeaderCellDef title img_cell cell_center>  Player profile image </mat-header-cell>
+      <mat-cell *matCellDef="let element" title  img_cell cell_center> 
+        <img class="table-user rounded-circle img-thumbnail" src="assets/media/users/default-avatar.jpg" *ngIf="errors.indexOf(element.player.pic)>=0">
+        <img class="table-user rounded-circle img-thumbnail" src="{{picUrl}}{{element.player.pic}}" *ngIf="errors.indexOf(element.player.pic)==-1">
+	 </mat-cell>
+    </ng-container>	
+
+		  <!-- matches Column -->
+	    <ng-container matColumnDef="player">
+	      <mat-header-cell *matHeaderCellDef  cell_center> Player </mat-header-cell>
+	      <mat-cell *matCellDef="let element"  cell_center> 
+	      {{element?.player.fname[0]?.toUpperCase()+element?.player?.fname?.slice(1)}} {{element?.player?.lname[0]?.toUpperCase()+element?.player?.lname?.slice(1)}}
+	         
+	      </mat-cell>
+	    </ng-container>
+
+
+	    <ng-container matColumnDef="votes">
+	      <mat-header-cell *matHeaderCellDef  cell_center> Votes </mat-header-cell>
+	      <mat-cell *matCellDef="let element"  cell_center> 
+	      	<span *ngIf="element?.vote?.length==0">0</span>
+	      	<span *ngIf="element?.vote?.length!=0">{{element?.vote?.length}}</span>
+	      
+	         
+	      </mat-cell>
+	    </ng-container>
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
+    <mat-paginator #paginator
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 20]"
+    [showFirstLastButtons]="true">
+  </mat-paginator>
+</div>
+</div>
+
+
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#9784ed"
+  type="pacman"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

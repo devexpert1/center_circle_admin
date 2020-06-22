@@ -1,0 +1,56 @@
+<div class="kt-login__body">
+	<!--begin::Signin-->
+	<div class="kt-login__form">
+	<img class="img-icon" src="assets/img/login.png"/>
+		<div class="kt-login__title">
+			<h3>Sign In</h3>
+			<p>Enter your email address and password to access admin panel.</p>
+		</div>	
+
+		<!--begin::Form-->
+		<form class="kt-form" [formGroup]="login" autocomplete="off" (ngSubmit)="justLogin()">
+			<div class="form-group">
+				<mat-form-field>
+					<mat-label>{{ 'AUTH.INPUT.EMAIL' | translate }}</mat-label>
+					<input matInput type="email" placeholder="{{ 'AUTH.INPUT.EMAIL' | translate }}" formControlName="email" autocomplete="off"/>
+					<span *ngIf="is_submit && !login.controls.email.valid">
+						<strong>Please enter a valid email address</strong>
+					</span>
+				
+				</mat-form-field>
+			</div>
+
+
+	  
+			<div class="form-group">
+				<mat-form-field>
+					<mat-label>{{ 'AUTH.INPUT.PASSWORD' | translate }}</mat-label>
+					<input matInput type="password" placeholder="{{ 'AUTH.INPUT.PASSWORD' | translate }}" formControlName="password" autocomplete="off"/>
+					<span *ngIf="is_submit && !login.controls.password.valid">
+						<strong>Please enter password</strong>
+					</span>
+			
+				</mat-form-field>
+			</div>
+			<!--begin::Action-->
+			<div class="kt-login__actions">
+				<!-- <a href="javascript:;" routerLink="/auth/forgot-password" class="kt-link kt-login__link-forgot">
+					{{ 'AUTH.GENERAL.FORGOT_BUTTON' | translate }}
+				</a> -->
+				<button type="submit"  class="btn btn-green btn-elevate kt-login__btn-primary">{{ 'AUTH.LOGIN.BUTTON' | translate }}</button>
+			</div>
+
+		</form>
+
+	</div>
+
+</div>
+
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#9784ed"
+type="square-loader"
+>
+<p style="font-size: 20px; color: white">Please wait...</p>
+</ngx-spinner>

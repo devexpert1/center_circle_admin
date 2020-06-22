@@ -1,0 +1,139 @@
+.result_info{
+    margin-bottom: 20px;
+    .head{
+        padding: 15px 20px;
+        background: #121212;
+        font-size: 0.8rem;
+        display: block;
+        color: #fff;
+        font-size:14px;
+        span{
+            float: right;
+            color: #fff;
+            font-weight: 700;
+        }
+    }
+    .goals-result {
+        padding: 30px 20px;
+        text-align: center;
+        background: #fff;
+        border: 1px solid #dedede;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+        /*display: flex;
+        justify-content: space-between;*/
+        .team{
+                  display: block;
+				margin-top: 20px;
+				border-radius: 0;
+				color: #fff;
+				font-size: 15px;
+				position: relative;
+				margin-bottom: 30px;
+				border: 1px solid #ffffff30;
+				padding: 10px;  
+				text-align: center;
+				background: rgba(255, 255, 255, 0.12);
+
+            img{
+                max-width: 50px;
+                margin-right: 10px;
+                border: 1px solid #dedede;
+            }
+        }
+        .goals{
+            color: #fff;
+            b{
+                display: inline-block;
+                background: #121212;
+                color: #fff;
+                padding:5px 10px
+            }
+            a{
+                background: #0090d7 !important;
+                background-color: #0090d7 !important;
+                color: #fff;
+                display: block;
+                margin-top: 14px;
+                padding: 5px 10px;
+                border-radius: 0;
+                cursor:pointer;
+            }
+        }
+    }
+
+}
+.stat_results{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ebedf2;
+    margin: 0 -1.25rem;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    .stat_name{
+        text-align: center;
+        font-weight: 500;
+        color: #000;
+        font-size: 15px;
+    }
+    .stats{
+        width:33.33%;
+        padding:0 15px;
+        text-align:center;
+        .stat_brdr{
+            background: #e6e6e6;
+            width:100%;
+            .stat_brdr_fld{
+                height:15px;
+                background:#00affe;
+            }
+        }
+    }
+}
+.bg-box-s {
+    background: #f9f9f9;
+    padding: 20px 20px;
+	a.btn.theme.btn-als {
+		margin: -20px -20px 10px !important;
+		padding: 11px;
+		font-size: 16px;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		font-weight: 500;
+	}
+} 
+.main-box-bgs {
+    padding: 30px 20px;
+    background-size: cover;
+    background-position: center center;
+    color: #fff;
+	text-align:left;
+}
+span.total-goals {
+    width: 40px;
+    height: 40px;
+    background: #0090d7;
+    display: inline-block;
+    line-height: 40px;
+    margin-left: 20px;
+    text-align: center;
+    position: relative;
+}
+span.total-goals {
+    width: 40px;
+    height: 40px;
+    background: #0090d7;
+    display: inline-block;
+    line-height: 40px;
+    margin-left: 10px;
+    text-align: center;
+    position: relative;
+}
+span.total-goals:after {
+    content: "";
+    position: absolute;
+    border: 8px solid #222;
+    border-color: transparent #0090d7 transparent transparent;
+    left: -16px;
+    top: 12px;
+}

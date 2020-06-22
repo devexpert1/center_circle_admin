@@ -1,0 +1,26 @@
+.kt-portlet__body {
+    padding: 0;
+}
+mat-tab-group {
+    padding: 0px 25px;
+}.mat-tab-body-content {
+    padding-top: 0px !important;
+}
+[mx-w-40]{
+    max-width: 40px;
+}
+[mx-w-60]{
+    max-width: 60px;
+}
+[mx-w-80]{
+    max-width: 80px;
+}
+
+[mx-w-100]{
+    max-width: 100px;
+}
+.mat-tab-body-content {
+    overflow: visible !important;
+    padding-top: 20px !important;
+}
+
